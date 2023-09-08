@@ -1,17 +1,124 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src='https://code.jquery.com/jquery-3.5.1.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.js"></script>
+    <script src="/smarteditor/js/HuskyEZCreator.js"></script>
+    <script src="sample.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="css/default.css">
 </head>
-<body>
-    <!-- <script src="//cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script> -->
-    <script src="ckeditor/ckeditor.js"></script>
-    <textarea id="contents" name="contents"></textarea>
-<script>
-        CKEDITOR.replace('contents');
 
-</script>
+<body>
+    <textarea id="input" cols="30" rows="10" aria-label="원본" hidden></textarea>
+    <div id="html" hidden></div>
+    <div class="layout">
+        <div>
+            <textarea id="nttCn" name="nttCn" cols="150" rows="10" hidden class="textarea" aria-label="sample code"></textarea>
+            <form name=option>
+                <div>
+                    <dl>
+                        <dt><label for="className">class name</label></dt>
+                        <dd>
+                            <input type="text" name="className" id="className" value="bd-list">
+                            <button type="button" value="bd-list" class="nameoption inline btn">bd-list</button>
+                            <button type="button" value="bd-reg" class="nameoption inline btn">bd-reg</button>
+                            <button type="button" value="bd-view" class="nameoption inline btn">bd-view</button>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            OUTPUT style
+                        </dt>
+                        <dd>
+                            <label>
+                                <input type="checkbox" name="todl" id="">
+                                table → dl > dt + dd
+                            </label>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            tag delete option
+                        </dt>
+                        <dd>
+                            <label>
+                                <input type="checkbox" name="ptag" id="">
+                                p
+                            </label>
+                            <label>
+                                <input type="checkbox" name="divtag" id="">
+                                div
+                            </label>
+                            <label>
+                                <input type="checkbox" name="brtag" id="">
+                                br
+                            </label>
+                            <label>
+                                <input type="checkbox" name="spantag" id="">
+                                span
+                            </label>
+                        </dd>
+                    </dl>
+                </div>
+            </form>
+
+        </div>
+        <div>
+            <button type="submit" class="generrator flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">변환</button>
+        </div>
+        <div><textarea id="output" cols="30" rows="10" aria-label="수정후"></textarea></div>
+    </div>
+    <script>
+        document.querySelector('#nttCn').value = SAMPLEHTML
+        /* 네이버 스마트 에디터  */
+        // 추가 글꼴 목록
+        //var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];
+        var oEditors = [];
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "nttCn",
+            sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+            htParams: {
+                bUseToolbar: true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+                bUseVerticalResizer: true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+                bUseModeChanger: true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+                //aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
+                fOnBeforeUnload: function () {
+                    //alert("완료!");
+                }
+            }, //boolean
+            fOnAppLoad: function () {
+                //예제 코드
+                //oEditors.getById["nttCn"].exec("PASTE_HTML", "");
+            },
+            fCreator: "createSEditor2"
+        });
+        // oEditors.getById["nttCn"].exec("FOCUS", []);
+        $(document).ready(function () {
+            $('.nameoption').on('click', function () {
+                option.className.value = $(this).val()
+            });
+        });
+    </script>
+    <script src="goddamTransforce.js"></script>
 </body>
+
 </html>
