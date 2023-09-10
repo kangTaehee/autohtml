@@ -1,6 +1,7 @@
 var outputSouce = ''
 
 $('.generrator').on('click', function () {
+    outputSouce = ''
     $('#input').val(oEditors.getById["nttCn"].getIR())
     let v = $('#input').val()
 
@@ -43,7 +44,7 @@ $('.generrator').on('click', function () {
     $('#html table').each(function (index, element) {
         // element == this
         // 초기화
-        outputSouce = ''
+        
         element = $(element)
 
         if (option.todl.checked) {
