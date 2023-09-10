@@ -6,6 +6,10 @@ $('.generrator').on('click', function () {
     let v = $('#input').val()
 
     $('#html').html($('#input').val())
+
+    // 강조스타일 텍스트
+    
+    // 불필요한 소스정리
     $('colgroup').remove()
     $('col').remove()
     $('#html').find('*').removeAttr('class')
@@ -25,12 +29,12 @@ $('.generrator').on('click', function () {
     let _val = $('#html').html()
     _val = _val.replaceAll(/\&nbsp\;/g, ' ')
     if (option.ptag.checked) {
-        _val = _val.replaceAll('<p>', '')
-        _val = _val.replaceAll('</p>', '')
+        _val = _val.replaceAll(/<p[^>]*>/g, '')
+        _val = _val.replaceAll(/<\/p[^>]*>/g, '')
     }
     if (option.divtag.checked) {
-        _val = _val.replaceAll('<div>', '')
-        _val = _val.replaceAll('</div>', '')
+        _val = _val.replaceAll(/<div[^>]*>/g, '')
+        _val = _val.replaceAll(/<\/div[^>]*>/g, '')
     }
     if (option.brtag.checked) {
         _val = _val.replaceAll('<br>', '')
@@ -48,16 +52,16 @@ $('.generrator').on('click', function () {
         element = $(element)
 
         if (option.todl.checked) {
-            $(element).find('tr').find('td:first').each(function (index, firsttd) {
+            element.find('tr').find('td:first').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dt>')
             })
-            $(element).find('tr').find('*:first+*').each(function (index, firsttd) {
+            element.find('tr').find('*:first+*').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dd>')
             })
-            $(element).find('tr').find('*:first+*+*').each(function (index, firsttd) {
+            element.find('tr').find('*:first+*+*').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dt>')
             })
-            $(element).find('tr').find('*:first+*+*+*').each(function (index, firsttd) {
+            element.find('tr').find('*:first+*+*+*').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dd>')
             })
 
