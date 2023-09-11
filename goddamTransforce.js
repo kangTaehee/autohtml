@@ -1,14 +1,16 @@
 var outputSouce = ''
+var radioIndex = 0
 
 $('.generrator').on('click', function () {
     outputSouce = ''
+    radioIndex = 0
     $('#input').val(oEditors.getById["nttCn"].getIR())
     let v = $('#input').val()
 
     $('#html').html($('#input').val())
 
     // 강조스타일 텍스트
-    
+
     // 불필요한 소스정리
     $('colgroup').remove()
     $('col').remove()
@@ -48,7 +50,7 @@ $('.generrator').on('click', function () {
     $('#html table').each(function (index, element) {
         // element == this
         // 초기화
-        
+
         element = $(element)
 
         if (option.todl.checked) {
@@ -107,31 +109,62 @@ $('.generrator').on('click', function () {
         "indent_empty_lines": false
     }
 
-    // const options = { indent_size: 2, space_in_empty_paren: true }
-    // const dataObj = { completed: false, id: 1, title: "delectus aut autem", userId: 1, }
-    // const dataJson = JSON.stringify(dataObj)
     outputSouce = outputSouce.replaceAll(/\*/g, '<span class=req aria-label=필수입력 role=img></span>')
-    // outputSouce = `<div class=${option.className.value}>${$('#output').val()}</div>`
-
+    outputSouce = generrator.toRadio(outputSouce, ['●', '○'])
+    outputSouce = generrator.toRadio(outputSouce, ['■', '□'])
 
     outputSouce = html_beautify(outputSouce, opts)
-    /* OUTPUT
-    {
-      "completed": false,
-      "id": 1,
-      "title": "delectus aut autem",
-      "userId": 1,
-    }
-    */
 
 
     $('#output').val(outputSouce)
+    $('#outputhtml').html(outputSouce)
     document.querySelector("#output").select();
     document.execCommand('copy');
 
 
 });
 $('[type=checkbox]').on('click', function () {
+    $('.generrator').trigger('click')
+});
+$('#className').on('keydown', function (e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        $('.generrator').trigger('click')
+    }
+});
+
+const generrator = {
+    /**
+     * 
+     * @param {string} item 
+     * @param {Array} c ['●'] 치환할 문자열 리스트
+     * @returns 
+     */
+    toRadio: (item, c) => {
+        let idx = 0
+        let legex = new RegExp(`[${c.join('')}]([^${c.join('')}<]*)`)
+        c.forEach(el => {
+            while (item.indexOf(el) > -1) {
+                ++idx
+                item = item.replace(legex, `<label for="sr-radio-${idx}"><input type="radio" name="" id="sr-radio-${idx}"> $1</label>\n`)
+            }
+        })
+        return item
+    },
+    toCheckbox: (item, c) => {
+        let idx = 0
+        let legex = new RegExp(`[${c.join('')}]([^${c.join('')}<]*)`)
+        c.forEach(el => {
+            while (item.indexOf(el) > -1) {
+                ++idx
+                item = item.replace(legex, `<label for="sr-checkbox-${idx}"><input type="radio" name="" id="sr-checkbox-${idx}"> $1</label>\n`)
+            }
+        })
+        return item
+    }
+}
+$('.nameoption').on('click', function () {
+    option.className.value = $(this).val()
     $('.generrator').trigger('click')
 
 });

@@ -37,3 +37,19 @@ label {
     grid-template-columns: auto 100px auto;
     gap: 10px;
 }
+.options {
+    dl {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    dt {
+        padding-bottom: 10px;
+    }
+    button,
+    input[type=text] {
+        height: 30px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        padding: 4px;
+    }
+}

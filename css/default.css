@@ -42,4 +42,19 @@ label {
   display: grid;
   grid-template-columns: auto 100px auto;
   gap: 10px;
+}
+
+.options dl {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.options dt {
+  padding-bottom: 10px;
+}
+.options button,
+.options input[type=text] {
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 4px;
 }/*# sourceMappingURL=default.css.map */

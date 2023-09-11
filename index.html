@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.js"></script>
     <script src="smarteditor/js/HuskyEZCreator.js"></script>
     <script src="sample.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <script>
         tailwind.config = {
             theme: {
@@ -32,10 +32,10 @@
     <div class="layout">
         <div>
             <textarea id="nttCn" name="nttCn" cols="150" rows="10" hidden class="textarea" aria-label="sample code"></textarea>
-            <form name=option>
+            <form name=option class="options">
                 <div>
                     <dl>
-                        <dt><label for="className">class name</label></dt>
+                        <dt>wrapper class</dt>
                         <dd>
                             <input type="text" name="className" id="className" value="bd-list">
                             <button type="button" value="bd-list" class="nameoption inline btn">bd-list</button>
@@ -110,15 +110,10 @@
                 //oEditors.getById["nttCn"].exec("PASTE_HTML", "");
             },
             fCreator: "createSEditor2"
-        });
-        // oEditors.getById["nttCn"].exec("FOCUS", []);
-        $(document).ready(function () {
-            $('.nameoption').on('click', function () {
-                option.className.value = $(this).val()
-            });
-        });
+        })
     </script>
     <script src="goddamTransforce.js"></script>
+    <div id="outputhtml"></div>
 </body>
 
 </html>
