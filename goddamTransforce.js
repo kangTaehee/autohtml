@@ -5,7 +5,7 @@ $('.generrator').on('click', function () {
     outputSouce = ''
     radioIndex = 0
     $('#input').val(oEditors.getById["nttCn"].getIR())
-    let v = $('#input').val()
+
 
     $('#html').html($('#input').val())
 
@@ -166,5 +166,4 @@ const generrator = {
 $('.nameoption').on('click', function () {
     option.className.value = $(this).val()
     $('.generrator').trigger('click')
-
 });
