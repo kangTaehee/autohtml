@@ -49,8 +49,16 @@
                         </dt>
                         <dd>
                             <label>
-                                <input type="checkbox" name="todl" id="">
+                                <input type="radio" name="todl" value="col">
+                                table list default
+                            </label>
+                            <label>
+                                <input type="radio" name="todl" value="dl">
                                 table → dl > dt + dd
+                            </label>
+                            <label>
+                                <input type="radio" name="todl" value="rowtable">
+                                row table
                             </label>
                         </dd>
                     </dl>
@@ -87,7 +95,7 @@
         <div><textarea id="output" cols="30" rows="10" aria-label="수정후"></textarea></div>
     </div>
     <script>
-        document.querySelector('#nttCn').value = SAMPLEHTML
+        // document.querySelector('#nttCn').value = SAMPLEHTML
         /* 네이버 스마트 에디터  */
         // 추가 글꼴 목록
         //var aAdditionalFontSet = [["MS UI Gothic", "MS UI Gothic"], ["Comic Sans MS", "Comic Sans MS"],["TEST","TEST"]];

@@ -52,8 +52,18 @@ $('.generrator').on('click', function () {
         // 초기화
 
         element = $(element)
+        if (option.todl.value === 'rowtable') {
+            element.find('tr').find('td:first').each(function (index, firsttd) {
+                firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
+                // firsttd.outerHTML = firsttd.outerHTML.replaceAll(/<\/td[^>]*>/g, '<\/th>')
+            })
+            element.find('tr').find('*:first+*+*').each(function (index, firsttd) {
+                firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
+                // firsttd.outerHTML = firsttd.outerHTML.replaceAll(/<\/td[^>]*>/g, '</th>')
+            })
+            outputSouce += `<div class=${option.className.value}>${element[0].outerHTML}</div>`
 
-        if (option.todl.checked) {
+        } else if (option.todl.value === 'dl') {
             element.find('tr').find('td:first').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dt>')
             })
