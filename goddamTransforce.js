@@ -100,10 +100,10 @@ $('.generrator').on('click', function () {
 
     });
     opts = {
+        "max_preserve_newlines": "-1",
+        "preserve_newlines": false,
         "indent_size": "4",
         "indent_char": " ",
-        "max_preserve_newlines": "5",
-        "preserve_newlines": true,
         "keep_array_indentation": false,
         "break_chained_methods": false,
         "indent_scripts": "normal",
@@ -124,7 +124,6 @@ $('.generrator').on('click', function () {
     outputSouce = generrator.toRadio(outputSouce, ['■', '□'])
 
     outputSouce = html_beautify(outputSouce, opts)
-
 
     $('#output').val(outputSouce)
     $('#outputhtml').html(outputSouce)
