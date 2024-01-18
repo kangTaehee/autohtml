@@ -57,4 +57,19 @@ label {
   border-radius: 3px;
   border: 1px solid #ccc;
   padding: 4px;
+}
+
+.inline-form-group {
+  display: inline-block;
+  border: 1px solid #ccc;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  border-radius: 3px;
+  padding: 2px;
+  gap: 4px;
+}
+.inline-form-group label {
+  margin: 0;
+  padding: 3px 7px;
 }/*# sourceMappingURL=default.css.map */

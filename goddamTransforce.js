@@ -1,5 +1,26 @@
 var outputSouce = ''
 var radioIndex = 0
+const removeAttrFilters = ['rowspan', 'colspan']
+/**
+ * `removeAttrs` 함수는 `removeAttrFilters` 배열에 지정된 속성을 제외하고 HTML 요소에서 속성을 제거
+ * @param element - `element` 매개변수는 속성을 제거하려는 HTML 요소
+ */
+function removeAttrs(element) {
+    let _array = element.attributes
+    let idx = 0
+    try {
+        do {
+            let name = _array[idx]?.name
+            if (removeAttrFilters.indexOf(name) > -1) {
+                idx++
+            } else {
+                element.removeAttribute(name)
+            }
+        } while (_array.length && _array.length > idx);
+    } catch (error) {
+
+    }
+}
 
 $('.generrator').on('click', function () {
     outputSouce = ''
@@ -14,15 +35,10 @@ $('.generrator').on('click', function () {
     // 불필요한 소스정리
     $('colgroup').remove()
     $('col').remove()
-    $('#html').find('*').removeAttr('class')
-    $('#html').find('*').removeAttr('style')
-    $('#html').find('*').removeAttr('height')
-    $('#html').find('*').removeAttr('width')
-    $('#html').find('*').removeAttr('border')
-    $('#html').find('*').removeAttr('cellpadding')
-    $('#html').find('*').removeAttr('cellspacing')
-    $('#html').find('*').removeAttr('width')
-    $('#html').find('*').removeAttr('valign')
+    $('#html').find('*').each(function (index, element) {
+        // element == this
+        removeAttrs(element)
+    });
     $('#html').find('td').each(function (index, element) {
         // element == this
         $(element).html($(element).text())
@@ -57,13 +73,24 @@ $('.generrator').on('click', function () {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
                 // firsttd.outerHTML = firsttd.outerHTML.replaceAll(/<\/td[^>]*>/g, '<\/th>')
             })
-            element.find('tr').find('*:first+*+*').each(function (index, firsttd) {
-                firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
-                // firsttd.outerHTML = firsttd.outerHTML.replaceAll(/<\/td[^>]*>/g, '</th>')
-            })
+            if (option.rowtitles.checked) {
+                element.find('tr').find('>*:first+*+*').each(function (index, firsttd) {
+                    firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
+                    // firsttd.outerHTML = firsttd.outerHTML.replaceAll(/<\/td[^>]*>/g, '</th>')
+                })
+                element.find('tr').find('>*:first+*+*+*+*').each(function (index, firsttd) {
+                    firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
+                })
+                element.find('tr').find('>*:first+*+*+*+*+*+*').each(function (index, firsttd) {
+                    firsttd.outerHTML = firsttd.outerHTML.replaceAll(/\<td([^>]*)>/g, '<th$1>')
+                })
+            }
             outputSouce += `<div class=${option.className.value}>${element[0].outerHTML}</div>`
 
         } else if (option.todl.value === 'dl') {
+            $('#html').find('*').removeAttr('rowspan')
+            $('#html').find('*').removeAttr('colspan')
+
             element.find('tr').find('td:first').each(function (index, firsttd) {
                 firsttd.outerHTML = firsttd.outerHTML.replaceAll('td>', 'dt>')
             })
@@ -91,11 +118,12 @@ $('.generrator').on('click', function () {
             element.prepend('<thead>')
             element.prepend('<caption>')
             var head = element.find('tr:first')[0].outerHTML
-            head = head.replaceAll('td>', 'th>')
+            head = head.replaceAll('<td', '<th')
+            head = head.replaceAll('</td>', '</th>')
             element.find('thead').prepend(head)
             element.find('tbody tr:first').remove()
             // $('#output').val($('#html').html())
-            outputSouce += `<div class=${option.className.value}>${element[0].outerHTML}</div>`
+            outputSouce += `<div class="${option.className.value}">${element[0].outerHTML}</div>`
         }
 
     });

@@ -10,7 +10,6 @@ label {
     padding: 4px 7px 8px 5px;
     background-color: pink;
     border-radius: 5px;
-    background: url("/static/portal/img/as.png") 0 0 no-repeat;
 }
 [type="checkbox"] {
     width: 20px;
@@ -53,5 +52,17 @@ label {
         border-radius: 3px;
         border: 1px solid #ccc;
         padding: 4px;
+    }
+}
+.inline-form-group{
+    display: inline-block;
+    border: 1px solid #ccc;
+    display: inline-flex;
+    border-radius: 3px;
+    padding: 2px;
+    gap: 4px;
+    label{
+        margin: 0;
+        padding: 3px 7px ;
     }
 }
