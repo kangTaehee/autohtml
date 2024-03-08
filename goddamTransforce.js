@@ -1,6 +1,26 @@
+
 var outputSouce = ''
 var radioIndex = 0
 const removeAttrFilters = ['rowspan', 'colspan']
+const opts = {
+    "max_preserve_newlines": "-1",
+    "preserve_newlines": false,
+    "indent_size": "4",
+    "indent_char": " ",
+    "keep_array_indentation": false,
+    "break_chained_methods": false,
+    "indent_scripts": "normal",
+    "brace_style": "collapse",
+    "space_before_conditional": true,
+    "unescape_strings": false,
+    "jslint_happy": false,
+    "end_with_newline": false,
+    "wrap_line_length": "0",
+    "indent_inner_html": false,
+    "comma_first": false,
+    "e4x": false,
+    "indent_empty_lines": false
+}
 /**
  * `removeAttrs` 함수는 `removeAttrFilters` 배열에 지정된 속성을 제외하고 HTML 요소에서 속성을 제거
  * @param element - `element` 매개변수는 속성을 제거하려는 HTML 요소
@@ -21,7 +41,34 @@ function removeAttrs(element) {
 
     }
 }
+$('.styleclear').on('click', function () {
+    $('#input').val(oEditors.getById["nttCn"].getIR())
+    $('#html').html($('#input').val())
+    $('#html').find('*').removeAttr('class')
+    $('#html').find('*').each(function (index, element) {
 
+        // console.log(element.style.cssText)
+        let styles = element.style.cssText.split(';')
+        a = styles.filter((word) => {
+            return word.indexOf('back') > -1 ||
+                // word.indexOf('font') > -1 ||
+                word.indexOf('width') > -1 ||
+                // word.indexOf('border') > -1 ||
+                word.indexOf('height') > -1
+        })
+        element.style = a.join(';')
+    });
+    outputSouce = document.querySelector('#html').innerHTML
+    outputSouce = html_beautify(outputSouce, opts)
+
+    $('#output').val(outputSouce)
+    $('#outputhtml').html(outputSouce)
+    document.querySelector("#output").select();
+    document.execCommand('copy');
+})
+// setTimeout(() => {
+//     $('.styleclear').trigger('click')
+// }, 500);
 $('.generrator').on('click', function () {
     outputSouce = ''
     radioIndex = 0
@@ -127,25 +174,7 @@ $('.generrator').on('click', function () {
         }
 
     });
-    opts = {
-        "max_preserve_newlines": "-1",
-        "preserve_newlines": false,
-        "indent_size": "4",
-        "indent_char": " ",
-        "keep_array_indentation": false,
-        "break_chained_methods": false,
-        "indent_scripts": "normal",
-        "brace_style": "collapse",
-        "space_before_conditional": true,
-        "unescape_strings": false,
-        "jslint_happy": false,
-        "end_with_newline": false,
-        "wrap_line_length": "0",
-        "indent_inner_html": false,
-        "comma_first": false,
-        "e4x": false,
-        "indent_empty_lines": false
-    }
+
 
     outputSouce = outputSouce.replaceAll(/\*/g, '<span class=req aria-label=필수입력 role=img></span>')
     outputSouce = generrator.toRadio(outputSouce, ['●', '○'])

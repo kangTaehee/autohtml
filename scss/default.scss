@@ -16,10 +16,16 @@ label {
     height: 20px;
     vertical-align: middle;
 }
+
 .generrator {
     display: block;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
+}
+.styleclear {
+    display: block;
+    width: 100%;
+    height: 20vh;
 }
 .btn {
     padding: 4px;
@@ -54,15 +60,15 @@ label {
         padding: 4px;
     }
 }
-.inline-form-group{
+.inline-form-group {
     display: inline-block;
     border: 1px solid #ccc;
     display: inline-flex;
     border-radius: 3px;
     padding: 2px;
     gap: 4px;
-    label{
+    label {
         margin: 0;
-        padding: 3px 7px ;
+        padding: 3px 7px;
     }
 }
