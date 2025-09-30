@@ -153,6 +153,7 @@ $('.generrator').on('click', function () {
             outputSouce += `<div class=${option.className.value}>${element[0].outerHTML}</div>`
 
         } else if (option.todl.value === 'dl') {
+            $('#html').find('col,colgroup').remove()
             $('#html').find('*').removeAttr('rowspan')
             $('#html').find('*').removeAttr('colspan')
 
