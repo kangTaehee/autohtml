@@ -80,9 +80,27 @@ $('.generrator').on('click', function () {
     // 강조스타일 텍스트
 
     // 불필요한 소스정리
-    $('colgroup').remove()
-    $('col').remove()
-    $('#html').find('*').each(function (index, element) {
+    // $('colgroup').remove()
+    // $('col').remove()
+
+    $('colgroup')
+        .each(function (index, element) {
+            // element == this
+            let totalWidth = 0
+            $(this).find('col').each(function (index, element) {
+                // element == this
+                totalWidth += $(this).width()
+            })
+            $(this).find('col').each(function (index, element) {
+                // element == this
+                let w = ($(this).width() / totalWidth * 100).toFixed(2) + '%'
+                $(this).width(w)
+                $(this).removeAttr('width')
+                console.log(w)
+            })
+        });
+
+    $('#html').find('*').not('col').each(function (index, element) {
         // element == this
         removeAttrs(element)
     });
@@ -163,6 +181,9 @@ $('.generrator').on('click', function () {
             outputSouce += `<div class=${option.className.value}>${head}</div>`
         } else {
             element.prepend('<thead>')
+            let item = element.find('colgroup')
+            element.find('colgroup').remove
+            element.prepend(item)
             element.prepend('<caption>')
             var head = element.find('tr:first')[0].outerHTML
             head = head.replaceAll('<td', '<th')
