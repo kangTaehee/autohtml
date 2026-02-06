@@ -92,13 +92,31 @@
                             </label>
                         </dd>
                     </dl>
+                    <dl>
+                        <dt>attr delete option</dt>
+                        <dd>
+                            <label>
+                                <input type="checkbox" name="style" class="att">
+                                style
+                            </label>
+                            <label>
+                                <input type="checkbox" name="class" class="att">
+                                class
+                            </label>
+                            <label>
+                                <input type="checkbox" name="id" class="att">
+                                id
+                            </label>
+                        </dd>
+                    </dl>
                 </div>
             </form>
 
         </div>
-        <div>
+        <div class="ge-btns">
             <button type="submit" class="generrator flex items-center w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">변환</button>
             <button type="button" class="styleclear">엑셀복사용</button>
+            <button type="button" id="removestyle" style="height: 200px;">스타일삭제</button>
         </div>
         <div><textarea id="output" cols="30" rows="10" aria-label="수정후"></textarea></div>
     </div>

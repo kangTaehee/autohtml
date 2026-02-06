@@ -78,4 +78,15 @@ label {
 .inline-form-group label {
   margin: 0;
   padding: 3px 7px;
+}
+
+.ge-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
 }/*# sourceMappingURL=default.css.map */

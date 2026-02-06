@@ -211,7 +211,27 @@ $('.generrator').on('click', function () {
 
 
 });
-$('[type=checkbox]').on('click', function () {
+
+$('#removestyle').on('click', function () {
+    $('#input').val(oEditors.getById["nttCn"].getIR())
+    $('#html').html($('#input').val())
+    if (option.style.checked) {
+        $('#html *').removeAttr('style')
+    }
+    if (option.class.checked) {
+        $('#html *').removeAttr('class')
+    }
+    if (option.id.checked) {
+        $('#html *').removeAttr('id')
+    }
+    outputSouce = $('#html').html()
+    $('#output').val(outputSouce)
+    $('#outputhtml').html(outputSouce)
+    document.querySelector("#output").select();
+    document.execCommand('copy');
+});
+
+$('[type=checkbox]').not('.att').on('click', function () {
     $('.generrator').trigger('click')
 });
 $('#className').on('keydown', function (e) {
