@@ -128,6 +128,26 @@ $('.generrator').on('click', function () {
         _val = _val.replaceAll('</span>', '')
     }
     $('#html').html(_val)
+
+    if (option.todl.value === 'merge') {
+        let tables = $('#html table')
+        if (tables.length > 1) {
+            let firstTable = $(tables[0])
+            if (firstTable.find('tbody').length === 0) {
+                let rows = firstTable.find('tr')
+                firstTable.append('<tbody></tbody>')
+                firstTable.find('tbody').append(rows)
+            }
+            let target = firstTable.find('tbody')
+            tables.each(function (index) {
+                if (index > 0) {
+                    target.append($(this).find('tr').not(':first'))
+                    $(this).remove()
+                }
+            })
+        }
+    }
+
     $('#html table').each(function (index, element) {
         // element == this
         // 초기화
@@ -180,6 +200,19 @@ $('.generrator').on('click', function () {
             head = head.replaceAll(/<tr[^>]*>/g, '<dl>')
             head = head.replaceAll(/<\/tr[^>]*>/g, '</dl>')
             outputSouce += `<div class=${option.className.value}>${head}</div>`
+        } else if (option.todl.value === 'merge') {
+            element.prepend('<thead>')
+            let item = element.find('colgroup')
+            element.find('colgroup').remove()
+            element.prepend(item)
+            element.prepend('<caption>')
+            var head = element.find('tr:first')[0].outerHTML
+            head = head.replaceAll('<td', '<th')
+            head = head.replaceAll('</td>', '</th>')
+            element.find('thead').prepend(head)
+            element.find('tbody tr:first').remove()
+            // $('#output').val($('#html').html())
+            outputSouce += `<div class="${option.className.value}">${element[0].outerHTML}</div>`
         } else {
             element.prepend('<thead>')
             let item = element.find('colgroup')
@@ -200,7 +233,7 @@ $('.generrator').on('click', function () {
 
     outputSouce = outputSouce.replaceAll(/\*/g, '<span class=req aria-label=필수입력 role=img></span>')
     outputSouce = generrator.toRadio(outputSouce, ['●', '○'])
-    outputSouce = generrator.toRadio(outputSouce, ['■', '□'])
+    outputSouce = generrator.toCheckbox(outputSouce, ['■', '□'])
 
     outputSouce = html_beautify(outputSouce, opts)
 
@@ -265,7 +298,7 @@ const generrator = {
         c.forEach(el => {
             while (item.indexOf(el) > -1) {
                 ++idx
-                item = item.replace(legex, `<label for="sr-checkbox-${idx}"><input type="radio" name="" id="sr-checkbox-${idx}"> $1</label>\n`)
+                item = item.replace(legex, `<label for="sr-checkbox-${idx}"><input type="checkbox" name="" id="sr-checkbox-${idx}"> $1</label>\n`)
             }
         })
         return item
