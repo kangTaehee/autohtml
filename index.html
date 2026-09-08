@@ -41,6 +41,14 @@
                             <button type="button" value="bd-list" class="nameoption inline btn">bd-list</button>
                             <button type="button" value="bd-reg" class="nameoption inline btn">bd-reg</button>
                             <button type="button" value="bd-view" class="nameoption inline btn">bd-view</button>
+                            <button type="button" id="addpreset" class="inline btn" title="현재 입력값을 프리셋으로 저장">＋</button>
+                            <span id="custompresets"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>table caption</dt>
+                        <dd>
+                            <input type="text" name="captionText" id="captionText" placeholder="표 제목 (비우면 빈 caption)">
                         </dd>
                     </dl>
                     <dl>
@@ -68,8 +76,8 @@
                                     row table
                                 </label>
                                 <label>
-                                    <input type="checkbox" name="rowtitles">
-                                    row cell title
+                                    th 열 번호
+                                    <input type="text" name="rowthcols" id="rowthcols" value="1" title="쉼표로 구분 (예: 1,3,5)">
                                 </label>
                             </div>
                             
@@ -100,6 +108,23 @@
                         </dd>
                     </dl>
                     <dl>
+                        <dt>정리 옵션</dt>
+                        <dd>
+                            <label>
+                                <input type="checkbox" name="officeclean">
+                                오피스 잔재 정리
+                            </label>
+                            <label>
+                                이미지
+                                <select name="imgmode">
+                                    <option value="keep">유지</option>
+                                    <option value="remove">삭제</option>
+                                    <option value="placeholder">빈 placeholder</option>
+                                </select>
+                            </label>
+                        </dd>
+                    </dl>
+                    <dl>
                         <dt>attr delete option</dt>
                         <dd>
                             <label>
@@ -126,6 +151,11 @@
             <button type="button" id="removestyle" style="height: 200px;">스타일삭제</button>
         </div>
         <div><textarea id="output" cols="30" rows="10" aria-label="수정후"></textarea></div>
+        <div class="preview-panel">
+            <div class="preview-head">미리보기</div>
+            <ul id="warnings" class="warnings" hidden></ul>
+            <div id="outputhtml" class="preview-body"></div>
+        </div>
     </div>
     <script>
         // document.querySelector('#nttCn').value = SAMPLEHTML
@@ -153,8 +183,8 @@
             fCreator: "createSEditor2"
         })
     </script>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="goddamTransforce.js"></script>
-    <div id="outputhtml"></div>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQJGXBLG7S"></script>
 <script>
@@ -163,6 +193,15 @@
   gtag('js', new Date());
 
   gtag('config', 'G-SQJGXBLG7S');
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6XG5W8WJ4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6XG5W8WJ4');
 </script>
 </body>
 
