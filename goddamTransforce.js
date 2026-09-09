@@ -4,7 +4,7 @@ var radioIndex = 0
 const removeAttrFilters = ['rowspan', 'colspan']
 const OPTION_KEY = 'autohtml.options'
 const PRESET_KEY = 'autohtml.presets'
-const CHECK_NAMES = ['ptag', 'divtag', 'brtag', 'spantag', 'officeclean', 'style', 'class', 'id']
+const CHECK_NAMES = ['ptag', 'divtag', 'brtag', 'spantag', 'tdtextonly', 'officeclean', 'style', 'class', 'id']
 const opts = {
     "max_preserve_newlines": "-1",
     "preserve_newlines": false,
@@ -224,7 +224,7 @@ $('.generrator').on('click', function () {
         }
         if (option.imgmode.value !== 'remove') {
             warnings.push(`이미지 ${imgCount}개 발견 — 별도 업로드/경로 지정 필요`
-                + (option.imgmode.value === 'keep' ? ' (표 안 이미지는 텍스트 변환 과정에서 제거됨)' : ''))
+                + (option.imgmode.value === 'keep' && option.tdtextonly.checked ? ' (표 안 이미지는 텍스트 변환 과정에서 제거됨)' : ''))
         }
     }
 
@@ -249,15 +249,17 @@ $('.generrator').on('click', function () {
         // element == this
         removeAttrs(element)
     });
-    $('#html').find('td').each(function (index, element) {
-        // element == this
-        // placeholder 모드면 셀 안 이미지 보존, 그 외에는 텍스트만 남김(기존 동작)
-        const imgs = $(element).find('img').clone()
-        $(element).html($(element).text())
-        if (option.imgmode.value === 'placeholder' && imgs.length) {
-            $(element).append(imgs)
-        }
-    });
+    if (option.tdtextonly.checked) {
+        $('#html').find('td').each(function (index, element) {
+            // element == this
+            // placeholder 모드면 셀 안 이미지 보존, 그 외에는 텍스트만 남김
+            const imgs = $(element).find('img').clone()
+            $(element).html($(element).text())
+            if (option.imgmode.value === 'placeholder' && imgs.length) {
+                $(element).append(imgs)
+            }
+        });
+    }
     // option 처리
     let _val = $('#html').html()
     _val = _val.replaceAll(/\&nbsp\;/g, ' ')
